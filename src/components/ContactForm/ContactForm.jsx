@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { createContactThunk } from 'redux/thunk/contactsThunk';
 import { selectContacts } from 'redux/selector/selectors';
@@ -36,15 +35,14 @@ export function ContactForm() {
     if (contacts.find(el => el.name.toLowerCase() === name.toLowerCase())) {
       return toast.info(`${name} is already in contacts.`);
     } else if (
-      contacts.find(el => el.phone.toLowerCase() === number.toLowerCase())
+      contacts.find(el => el.number.toLowerCase() === number.toLowerCase())
     ) {
       return toast.info(`${number} is already in contacts.`);
     }
 
     const newContact = {
-      id: nanoid(),
       name,
-      phone: number,
+      number,
     };
 
     dispatch(createContactThunk(newContact));
@@ -59,7 +57,7 @@ export function ContactForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <label>
-        Name
+        <span>Name</span>
         <input
           type="text"
           name="name"
@@ -67,13 +65,14 @@ export function ContactForm() {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          placeholder="Jacob Mercer"
           onChange={e => {
             handleInputChange(e.target.value, e.target.name);
           }}
         />
       </label>
       <label>
-        Number
+        <span>Number</span>
         <input
           type="tel"
           name="number"
@@ -81,6 +80,7 @@ export function ContactForm() {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          placeholder="+38-8888-8888-88"
           onChange={e => {
             handleInputChange(e.target.value, e.target.name);
           }}

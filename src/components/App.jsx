@@ -1,34 +1,54 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { PhoneBook } from 'page/PhoneBook/PhoneBook';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './Layout/Layout';
+import { HomePage } from 'page/HomePage/HomePage';
+import Login from 'page/Auth/Login/Login';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
-import { Filter } from './ContactList/Filter/Filter';
-import { getContactsThunk } from 'redux/thunk/contactsThunk';
-import { selectContacts } from 'redux/selector/selectors';
+import { ToastContainer } from 'react-toastify';
+import Register from 'page/Auth/Register/Register';
+import PrivateRoute from 'service/route/PrivateRoute';
+import PublicRoute from 'service/route/PublicRoute';
 
 export function App() {
-  const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getContactsThunk());
-  }, [dispatch]);
-
   return (
-    <section>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      {contacts.length > 0 && (
-        <>
-          <h2>Contacts</h2>
-          <Filter />
-          <ContactList />
-          <ToastContainer />
-        </>
-      )}
-    </section>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="phone-book"
+            element={
+              <PrivateRoute>
+                <PhoneBook />
+              </PrivateRoute>
+            }
+          >
+            <Route path="contacts" element={<ContactList />} />
+            <Route path="add" element={<ContactForm />} />
+          </Route>
+          <Route
+            path="login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+        </Route>
+      </Routes>
+
+      <ToastContainer />
+    </>
   );
 }
+
+// rtyrty@gmail.com

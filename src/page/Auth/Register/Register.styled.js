@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const LoginSection = styled.section`
+  padding: 40px 15px;
+`;
+
 export const Form = styled.form`
   box-sizing: border-box;
   display: flex;
@@ -12,23 +16,26 @@ export const Form = styled.form`
   box-shadow: rgb(150, 150, 150) 10px 10px 20px;
 
   @media screen and (min-width: 480px) {
+    width: 450px;
     margin: 0 auto;
     padding: 40px 50px;
   }
 
   @media screen and (min-width: 1280px) {
-    width: 50%;
+    width: 30%;
+  }
+
+  & h2 {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 15px;
   }
 
   & label {
     display: flex;
     /* flex-direction: column; */
-    align-items: baseline;
+    align-items: center;
     margin-bottom: 30px;
-    & span {
-      display: block;
-      min-width: 80px;
-    }
   }
   & input {
     font-size: 16px;
@@ -42,5 +49,6 @@ export const Form = styled.form`
     padding: 8px 10px;
     border-radius: 5px;
     background-color: rgb(255, 248, 0);
+    font-size: 16px;
   }
 `;
