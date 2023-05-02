@@ -1,5 +1,4 @@
 import {
-  AddContactsLink,
   ContactsLink,
   LinkContainer,
   PhoneBookContainer,
@@ -13,7 +12,7 @@ export const PhoneBook = () => {
       <PhoneBookContainer>
         <LinkContainer>
           <ContactsLink to="contacts">Contacts</ContactsLink>
-          <AddContactsLink to="add">Add Contacts</AddContactsLink>
+          <ContactsLink to="add">Add Contacts</ContactsLink>
         </LinkContainer>
 
         <Outlet />

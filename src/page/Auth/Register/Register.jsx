@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, LoginSection } from './Register.styled';
 import { useDispatch } from 'react-redux';
 import { signupThunk } from 'redux/thunk/contactsThunk';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -38,7 +39,24 @@ const Register = () => {
       password,
     };
 
-    dispatch(signupThunk(user));
+    dispatch(signupThunk(user))
+      .unwrap()
+      .then(({ user }) => {
+        // console.log(user);
+        toast.success(`${user.name} hi, you have successfully registered`);
+      })
+      .catch(error => {
+        console.log(error);
+        toast.error(`${error.message}`);
+      });
+
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -79,7 +97,7 @@ const Register = () => {
             }}
           />
         </label>
-        <button type="submit">Log-in</button>
+        <button type="submit">Sign up</button>
       </Form>
     </LoginSection>
   );

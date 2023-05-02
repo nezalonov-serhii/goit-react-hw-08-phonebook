@@ -50,5 +50,12 @@ export const Form = styled.form`
     border-radius: 5px;
     background-color: rgb(255, 248, 0);
     font-size: 16px;
+    box-shadow: rgb(150, 150, 150) 5px 5px 10px;
+
+    transition: all 250ms linear;
+    &:hover {
+      color: #fff;
+      background-color: rgb(0, 177, 163);
+    }
   }
 `;

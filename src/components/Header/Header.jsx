@@ -28,12 +28,12 @@ export const Header = () => {
         </HeaderNav>
         {!isAuth ? (
           <AuthWrap>
-            <NavLink to="/login">Log-in</NavLink>
-            <NavLink to="/register">Registration</NavLink>
+            <NavLink to="/login">Sign in</NavLink>
+            <NavLink to="/register">Sign up</NavLink>
           </AuthWrap>
         ) : (
           <AuthWrap>
-            <User>{user.email}</User>
+            <User>{user.name}</User>
             <Logout
               onClick={() => {
                 dispatch(logoutThunk());

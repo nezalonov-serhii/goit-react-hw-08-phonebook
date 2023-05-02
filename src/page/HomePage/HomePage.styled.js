@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const HomePageSection = styled.section`
@@ -20,8 +21,14 @@ export const HomePageContainer = styled.div`
   }
 `;
 export const HomePageWrap = styled.div`
+  max-width: 400px;
+  margin: 0 auto;
   padding: 20px 30px;
   border-radius: 10px;
   box-shadow: rgb(150, 150, 150) 10px 10px 20px;
   background-color: #fff;
+`;
+
+export const HomePageLink = styled(Link)`
+  color: rgb(0 177 163);
 `;

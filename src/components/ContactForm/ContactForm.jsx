@@ -45,7 +45,13 @@ export function ContactForm() {
       number,
     };
 
-    dispatch(createContactThunk(newContact));
+    dispatch(createContactThunk(newContact))
+      .unwrap()
+      .then(() => {
+        toast.success(`${name} add in contacts.`);
+      })
+      .catch(() => toast.error('Sorry something went wrong try again'));
+
     resetForm();
   };
 

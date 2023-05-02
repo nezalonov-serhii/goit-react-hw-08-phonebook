@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TiDeleteOutline } from 'react-icons/ti';
+import { toast } from 'react-toastify';
+
+import { Filter } from './Filter/Filter';
 import {
-  currentUserThunk,
   deleteContactThunk,
   getContactsThunk,
 } from 'redux/thunk/contactsThunk';
@@ -17,8 +21,6 @@ import {
   ContactsWrap,
   Item,
 } from './ContactList.styled';
-import { Filter } from './Filter/Filter';
-import { useEffect } from 'react';
 
 export function ContactList() {
   const dispatch = useDispatch();
@@ -33,9 +35,17 @@ export function ContactList() {
   );
 
   useEffect(() => {
-    token && dispatch(currentUserThunk(token));
-    token && dispatch(getContactsThunk());
+    token && dispatch(getContactsThunk(token));
   }, [dispatch, token]);
+
+  const handelDelete = id => {
+    dispatch(deleteContactThunk(id))
+      .unwrap()
+      .then(user => {
+        toast.success(`${user.name} removed from contacts.`);
+      })
+      .catch(() => toast.error('Sorry something went wrong try again'));
+  };
 
   return (
     <ContactsWrap>
@@ -52,11 +62,11 @@ export function ContactList() {
                 <button
                   type="button"
                   onClick={() => {
-                    dispatch(deleteContactThunk(id));
+                    handelDelete(id);
                   }}
                   disabled={isLoading}
                 >
-                  Delete
+                  <TiDeleteOutline />
                 </button>
               </Item>
             );

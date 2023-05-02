@@ -30,19 +30,6 @@ export const LinkContainer = styled.div`
   overflow: hidden;
 `;
 
-export const AddContactsLink = styled(NavLink)`
-  text-align: center;
-  background-color: rgb(51, 51, 51);
-  width: 100%;
-  padding: 8px 0;
-  color: #fff;
-
-  &.active {
-    background-color: rgb(255, 248, 0);
-    color: #000;
-  }
-`;
-
 export const ContactsLink = styled(NavLink)`
   text-align: center;
   background-color: rgb(51, 51, 51);
@@ -50,8 +37,15 @@ export const ContactsLink = styled(NavLink)`
   padding: 8px 0;
   color: #fff;
 
+  transition: all 250ms linear;
+
   &.active {
     background-color: rgb(255, 248, 0);
     color: #000;
+  }
+
+  &:hover {
+    background-color: rgb(0, 177, 163);
+    color: #fff;
   }
 `;

@@ -1,9 +1,9 @@
 const { useSelector } = require('react-redux');
 const { Navigate } = require('react-router-dom');
-const { selectIsLoggedIn } = require('redux/selector/selectors');
+const { selectToken } = require('redux/selector/selectors');
 
 const PublicRoute = ({ children }) => {
-  const isAuth = useSelector(selectIsLoggedIn);
+  const isAuth = useSelector(selectToken);
   return !isAuth ? children : <Navigate to={'/phone-book/contacts'} />;
 };
 

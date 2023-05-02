@@ -12,18 +12,24 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { reducer } from './reducer';
+import { signupReducer } from './Slice/signupSlice/signupSlice';
+import { contactReducer } from './Slice/contactsSlice/contactsSlice';
+import { filterReducer } from './filterSlice/filterSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['signup'],
+  whitelist: ['token'],
 };
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, signupReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    contact: contactReducer,
+    filter: filterReducer,
+    signup: persistedReducer,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

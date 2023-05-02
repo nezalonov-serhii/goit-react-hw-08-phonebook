@@ -11,7 +11,7 @@ import {
 
 export const getContactsThunk = createAsyncThunk(
   'contacts/fetchAll',
-  async () => getContacts()
+  async token => getContacts(token)
 );
 
 export const deleteContactThunk = createAsyncThunk(
@@ -32,11 +32,9 @@ export const loginThunk = createAsyncThunk('user/login', async contact =>
   login(contact)
 );
 
-export const logoutThunk = createAsyncThunk('user/logout', async contact =>
-  logout(contact)
-);
+export const logoutThunk = createAsyncThunk('user/logout', async => logout());
 
 export const currentUserThunk = createAsyncThunk(
   'user/currentUser',
-  async contact => currentUser(contact)
+  async token => currentUser(token)
 );

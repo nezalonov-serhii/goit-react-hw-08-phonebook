@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Form, LoginSection } from './Login.styled';
 import { useState } from 'react';
 import { loginThunk } from 'redux/thunk/contactsThunk';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -32,7 +33,23 @@ const Login = () => {
       password,
     };
 
-    dispatch(loginThunk(user));
+    dispatch(loginThunk(user))
+      .unwrap()
+      .then(({ user }) => {
+        toast.success(`${user.name} hello, you have successfully logged in`);
+      })
+      .catch(error => {
+        toast.error(
+          'Sorry, try again, this user was not found or the password is incorrect'
+        );
+      });
+
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -62,7 +79,7 @@ const Login = () => {
             }}
           />
         </label>
-        <button type="submit">Log-in</button>
+        <button type="submit">Sign in</button>
       </Form>
     </LoginSection>
   );

@@ -29,7 +29,6 @@ const signupSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.error = null;
         state.token = payload.token;
         state.user = payload.user;
@@ -42,10 +41,15 @@ const signupSlice = createSlice({
         state.isRefreshing = false;
         state.error = null;
       })
+      .addCase(currentUserThunk.pending, (state, { payload }) => {
+        state.isLoading = true;
+        state.isRefreshing = true;
+      })
       .addCase(currentUserThunk.fulfilled, (state, { payload }) => {
         state.error = null;
         state.user = payload;
         state.isLoggedIn = true;
+        state.isRefreshing = false;
       });
   },
 });

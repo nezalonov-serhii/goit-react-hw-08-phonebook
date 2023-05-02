@@ -5,6 +5,7 @@ export const HeaderSection = styled.header`
   padding: 20px 0;
   background-color: #333333;
 
+  font-size: 18px;
   color: #fff;
 `;
 
@@ -45,8 +46,14 @@ export const AuthWrap = styled.div`
   align-items: center;
   gap: 20px;
 
+  & a {
+    padding: 5px 10px;
+  }
   & a.active {
     color: rgb(255, 248, 0);
+    background-color: transparent;
+    border: 2px solid rgb(255, 248, 0);
+    border-radius: 7px;
   }
 `;
 

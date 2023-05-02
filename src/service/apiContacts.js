@@ -6,14 +6,15 @@ const setToken = token => {
   axios.defaults.headers.common['Authorization'] = token;
 };
 
-export const dellToken = () => {
+const dellToken = () => {
   delete axios.defaults.headers.common['Authorization'];
 };
 
-export const getContacts = async () => {
+export const getContacts = async token => {
+  setToken(token);
   try {
-    const response = await axios.get('/contacts');
-    return response.data;
+    const { data } = await axios.get('/contacts');
+    return data;
   } catch (error) {
     return Promise.reject(error.message);
   }
@@ -21,8 +22,8 @@ export const getContacts = async () => {
 
 export const deleteContact = async contactId => {
   try {
-    const response = await axios.delete(`/contacts/${contactId}`);
-    return response.data;
+    const { data } = await axios.delete(`/contacts/${contactId}`);
+    return data;
   } catch (error) {
     return Promise.reject(error.message);
   }
@@ -30,8 +31,8 @@ export const deleteContact = async contactId => {
 
 export const addContact = async contact => {
   try {
-    const response = await axios.post('/contacts', contact);
-    return response.data;
+    const { data } = await axios.post('/contacts', contact);
+    return data;
   } catch (error) {
     return Promise.reject(error.message);
   }
@@ -44,6 +45,11 @@ export const signup = async contact => {
 
     return data;
   } catch (error) {
+    if (error.response.data.keyPattern?.email === 1) {
+      return Promise.reject(
+        `Please try another email ${error.response.data.keyValue.email} this is not valid`
+      );
+    } else if (error.response.data) return Promise.reject(error.response.data);
     return Promise.reject(error.message);
   }
 };
@@ -62,14 +68,15 @@ export const login = async contact => {
 export const logout = async () => {
   try {
     await axios.post('/users/logout');
+    dellToken();
   } catch (error) {
     return Promise.reject(error.message);
   }
 };
 
 export const currentUser = async token => {
+  setToken(token);
   try {
-    setToken(token);
     const { data } = await axios.get('/users/current');
 
     return data;

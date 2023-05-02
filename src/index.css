@@ -2,14 +2,13 @@
 /* bring in normalize.css styles */
 
 body {
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
   margin: 0;
   height: 100vh;
 
   background-color: #eee;
 
-  font-size: 18px;
-  font-family: sans-serif
 }
 
 #root {
@@ -20,7 +19,11 @@ body {
 }
 
 main {
+  font-size: 18px;
   flex: 1 1 0;
+  background-image: url('./img/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1,
@@ -55,4 +58,5 @@ img {
 
 button {
   cursor: pointer;
+  font-size: inherit;
 }

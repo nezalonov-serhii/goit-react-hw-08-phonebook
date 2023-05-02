@@ -37,14 +37,30 @@ export const Item = styled.li`
   }
 
   & button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border: none;
-    padding: 5px 7px;
+    padding: 2px 4px;
     border-radius: 5px;
-    background-color: #ff2c2c;
+    background-color: rgb(51, 51, 51);
     color: #fff;
-  }
-  & button:disabled {
-    opacity: 20%;
+
+    transition: background-color 250ms linear;
+
+    & svg {
+      width: 30px;
+      height: auto;
+    }
+
+    &:disabled {
+      opacity: 20%;
+    }
+
+    &:hover {
+      background-color: rgb(112 0 0);
+    }
   }
 `;
 
