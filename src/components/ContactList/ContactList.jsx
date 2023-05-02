@@ -64,7 +64,7 @@ function ContactList() {
     <>
       {isRefreshing && <Loader />}
       <ContactsWrap>
-        {!isContactsEmpty && !isRefreshing && (
+        {!isContactsEmpty && !isRefreshing && !isLoading && (
           <ContactContainer>
             <WelcomeMessage>
               Hello {user.name} please{' '}
