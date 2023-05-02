@@ -1,13 +1,19 @@
-import { useDispatch } from 'react-redux';
-import { Form, LoginSection } from './Login.styled';
 import { useState } from 'react';
-import { loginThunk } from 'redux/thunk/contactsThunk';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+
+import Loader from 'components/Loader/Loader';
+
+import { loginThunk } from 'redux/thunk/contactsThunk';
+import { selectIsAuthLoading } from 'redux/selector/selectors';
+
+import { Form, LoginSection } from './Login.styled';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isAuthLoading = useSelector(selectIsAuthLoading);
   const dispatch = useDispatch();
 
   const handleInputChange = (value, name) => {
@@ -58,6 +64,7 @@ const Login = () => {
         <h2>Please enter Email and Password</h2>
         <label>
           <input
+            required
             type="email"
             placeholder="Email"
             value={email}
@@ -69,6 +76,7 @@ const Login = () => {
         </label>
         <label>
           <input
+            required
             type="password"
             placeholder="Password"
             value={password}
@@ -79,7 +87,10 @@ const Login = () => {
             }}
           />
         </label>
-        <button type="submit">Sign in</button>
+        <button type="submit" disabled={isAuthLoading}>
+          {isAuthLoading && <Loader size="20" />}
+          {!isAuthLoading && <span>Sign in</span>}
+        </button>
       </Form>
     </LoginSection>
   );

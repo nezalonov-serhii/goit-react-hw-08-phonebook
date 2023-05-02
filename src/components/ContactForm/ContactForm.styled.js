@@ -50,5 +50,9 @@ export const Form = styled.form`
       color: #fff;
       background-color: rgb(0, 177, 163);
     }
+
+    &:disabled {
+      opacity: 50%;
+    }
   }
 `;

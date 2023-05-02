@@ -4,5 +4,5 @@ export const selectIsLoading = state => state.contact.isLoading;
 export const selectToken = state => state.signup.token;
 export const selectIsLoggedIn = state => state.signup.isLoggedIn;
 export const selectIsRefreshing = state => state.signup.isRefreshing;
-
+export const selectIsAuthLoading = state => state.signup.isAuthLoading;
 export const selectUser = state => state.signup.user;

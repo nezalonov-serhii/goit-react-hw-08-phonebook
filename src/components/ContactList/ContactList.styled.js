@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const ContactsWrap = styled.div`
@@ -10,6 +11,14 @@ export const ContactsWrap = styled.div`
     width: 600px;
     margin: 0 auto;
   }
+`;
+
+export const AddLink = styled(Link)`
+  color: rgb(0, 177, 163);
+`;
+
+export const WelcomeMessage = styled.p`
+  text-align: center;
 `;
 
 export const ContactContainer = styled.div`
@@ -29,8 +38,12 @@ export const Item = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 6px;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
+  padding: 5px 10px;
+
+  background-color: rgb(51, 51, 51);
+  border-radius: 8px;
+  color: #fff;
 
   &:not(:last-child) {
     margin-bottom: 15px;
@@ -66,7 +79,24 @@ export const Item = styled.li`
 
 export const ContactWrap = styled.div`
   display: flex;
+  gap: 5px;
+
   @media screen and (max-width: 480px) {
     flex-direction: column;
+    font-size: 17px;
   }
+`;
+
+export const TelLink = styled.a`
+  border-bottom: solid 1px #fff;
+
+  &:hover {
+    color: rgb(0, 177, 163);
+    border-bottom: solid 1px rgb(0, 177, 163);
+  }
+`;
+
+export const ButtonsWrap = styled.div`
+  display: flex;
+  gap: 20px;
 `;

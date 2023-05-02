@@ -1,19 +1,21 @@
-import { PhoneBook } from 'page/PhoneBook/PhoneBook';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-
-import Layout from './Layout/Layout';
-import { HomePage } from 'page/HomePage/HomePage';
-import Login from 'page/Auth/Login/Login';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
 import { ToastContainer } from 'react-toastify';
-import Register from 'page/Auth/Register/Register';
+import { lazy, useEffect } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+
 import PrivateRoute from 'service/route/PrivateRoute';
 import PublicRoute from 'service/route/PublicRoute';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectToken } from 'redux/selector/selectors';
 import { currentUserThunk } from 'redux/thunk/contactsThunk';
-import { useEffect } from 'react';
+
+import Layout from './Layout/Layout';
+const PhoneBook = lazy(() => import('page/PhoneBook/PhoneBook'));
+const HomePage = lazy(() => import('page/HomePage/HomePage'));
+const ContactForm = lazy(() => import('./ContactForm/ContactForm'));
+const ContactList = lazy(() => import('./ContactList/ContactList'));
+const Register = lazy(() => import('page/Auth/Register/Register'));
+const Login = lazy(() => import('page/Auth/Login/Login'));
 
 export function App() {
   const dispatch = useDispatch();
@@ -69,6 +71,3 @@ export function App() {
     </>
   );
 }
-
-// rtyrty@gmail.com
-// qweeqwqweeqw@qwe.com

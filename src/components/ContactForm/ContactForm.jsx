@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { toast } from 'react-toastify';
+
+import Loader from 'components/Loader/Loader';
+
 import { createContactThunk } from 'redux/thunk/contactsThunk';
-import { selectContacts } from 'redux/selector/selectors';
+import { selectContacts, selectIsLoading } from 'redux/selector/selectors';
 
 import { Form } from './ContactForm.styled';
 
-export function ContactForm() {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
+
+  const isLoading = useSelector(selectIsLoading);
   const contacts = useSelector(selectContacts);
 
   const handleInputChange = (value, name) => {
@@ -92,7 +96,12 @@ export function ContactForm() {
           }}
         />
       </label>
-      <button type="submit">Add contact</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading && <Loader size="20" />}
+        {!isLoading && <span>Add contact</span>}
+      </button>
     </Form>
   );
 }
+
+export default ContactForm;

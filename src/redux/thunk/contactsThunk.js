@@ -32,7 +32,9 @@ export const loginThunk = createAsyncThunk('user/login', async contact =>
   login(contact)
 );
 
-export const logoutThunk = createAsyncThunk('user/logout', async => logout());
+export const logoutThunk = createAsyncThunk('user/logout', async () =>
+  logout()
+);
 
 export const currentUserThunk = createAsyncThunk(
   'user/currentUser',

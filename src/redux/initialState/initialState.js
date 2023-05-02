@@ -4,12 +4,13 @@ export const contactInitialState = {
   error: null,
 };
 
-export const filterInitialFilterState = '';
-
 export const signupInitialState = {
   user: { name: null, email: null },
   token: null,
+  isAuthLoading: false,
   isLoggedIn: false,
   isRefreshing: false,
   error: null,
 };
+
+export const filterInitialFilterState = '';

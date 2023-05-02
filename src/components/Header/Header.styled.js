@@ -39,6 +39,12 @@ export const HeaderNav = styled.nav`
 export const HeaderNavLink = styled(NavLink)`
   color: inherit;
   text-decoration: none;
+
+  transition: color 250ms linear;
+
+  &:hover {
+    color: rgb(0, 177, 163);
+  }
 `;
 
 export const AuthWrap = styled.div`
@@ -48,12 +54,23 @@ export const AuthWrap = styled.div`
 
   & a {
     padding: 5px 10px;
+    transition: color 250ms linear;
   }
+
+  & a:hover {
+    color: rgb(0, 177, 163);
+  }
+
   & a.active {
     color: rgb(255, 248, 0);
     background-color: transparent;
     border: 2px solid rgb(255, 248, 0);
     border-radius: 7px;
+    transition: border 250ms linear;
+  }
+
+  & a.active:hover {
+    border: 2px solid rgb(0, 177, 163);
   }
 `;
 
@@ -62,11 +79,22 @@ export const User = styled.p`
 `;
 
 export const Logout = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 5px 10px;
+  min-width: 70px;
 
   color: #fff;
   font-size: 15px;
   background-color: transparent;
   border: 2px solid rgb(255, 248, 0);
   border-radius: 7px;
+
+  transition: border 250ms linear;
+
+  &:hover {
+    border: 2px solid rgb(0, 177, 163);
+  }
 `;

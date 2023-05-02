@@ -1,12 +1,13 @@
+import { Outlet } from 'react-router-dom';
+
 import {
   ContactsLink,
   LinkContainer,
   PhoneBookContainer,
   PhoneBookSection,
 } from './PhoneBook.styled';
-import { Outlet } from 'react-router-dom';
 
-export const PhoneBook = () => {
+const PhoneBook = () => {
   return (
     <PhoneBookSection>
       <PhoneBookContainer>
@@ -20,3 +21,5 @@ export const PhoneBook = () => {
     </PhoneBookSection>
   );
 };
+
+export default PhoneBook;

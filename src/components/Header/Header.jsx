@@ -1,4 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+import Loader from 'components/Loader/Loader';
+
+import { logoutThunk } from 'redux/thunk/contactsThunk';
+import {
+  selectIsAuthLoading,
+  selectIsLoggedIn,
+  selectUser,
+} from 'redux/selector/selectors';
+
 import {
   AuthWrap,
   HeaderContainer,
@@ -8,14 +19,13 @@ import {
   Logout,
   User,
 } from './Header.styled';
-import { selectIsLoggedIn, selectUser } from 'redux/selector/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutThunk } from 'redux/thunk/contactsThunk';
 
-export const Header = () => {
+const Header = () => {
+  const dispatch = useDispatch();
+
   const isAuth = useSelector(selectIsLoggedIn);
   const user = useSelector(selectUser);
-  const dispatch = useDispatch();
+  const isAuthLoading = useSelector(selectIsAuthLoading);
 
   return (
     <HeaderSection>
@@ -39,7 +49,8 @@ export const Header = () => {
                 dispatch(logoutThunk());
               }}
             >
-              Logout
+              {isAuthLoading && <Loader size="20" />}
+              {!isAuthLoading && <span>Logout</span>}
             </Logout>
           </AuthWrap>
         )}
@@ -47,3 +58,5 @@ export const Header = () => {
     </HeaderSection>
   );
 };
+
+export default Header;

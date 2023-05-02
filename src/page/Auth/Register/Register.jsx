@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { Form, LoginSection } from './Register.styled';
-import { useDispatch } from 'react-redux';
-import { signupThunk } from 'redux/thunk/contactsThunk';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+
+import Loader from 'components/Loader/Loader';
+
+import { signupThunk } from 'redux/thunk/contactsThunk';
+import { selectIsAuthLoading } from 'redux/selector/selectors';
+
+import { Form, LoginSection } from './Register.styled';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -10,6 +15,8 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+
+  const isAuthLoading = useSelector(selectIsAuthLoading);
 
   const handleInputChange = (value, name) => {
     switch (name) {
@@ -42,7 +49,6 @@ const Register = () => {
     dispatch(signupThunk(user))
       .unwrap()
       .then(({ user }) => {
-        // console.log(user);
         toast.success(`${user.name} hi, you have successfully registered`);
       })
       .catch(error => {
@@ -69,6 +75,7 @@ const Register = () => {
             placeholder="Name"
             value={name}
             name="name"
+            required
             onChange={e => {
               handleInputChange(e.target.value, e.target.name);
             }}
@@ -80,6 +87,7 @@ const Register = () => {
             placeholder="Email"
             value={email}
             name="email"
+            required
             onChange={e => {
               handleInputChange(e.target.value, e.target.name);
             }}
@@ -92,12 +100,16 @@ const Register = () => {
             value={password}
             name="password"
             autoComplete="off"
+            required
             onChange={e => {
               handleInputChange(e.target.value, e.target.name);
             }}
           />
         </label>
-        <button type="submit">Sign up</button>
+        <button type="submit" disabled={isAuthLoading}>
+          {isAuthLoading && <Loader size="20" />}
+          {!isAuthLoading && <span>Sign up</span>}
+        </button>
       </Form>
     </LoginSection>
   );

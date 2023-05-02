@@ -5,7 +5,7 @@ import {
   HomePageWrap,
 } from './HomePage.styled';
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <HomePageSection>
       <HomePageContainer>
@@ -24,3 +24,5 @@ export const HomePage = () => {
     </HomePageSection>
   );
 };
+
+export default HomePage;

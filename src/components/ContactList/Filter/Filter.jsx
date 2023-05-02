@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Label, WrapFilter } from './Filter.styled';
-// import PropTypes from 'prop-types';
+
 import { getVisibleContact } from 'redux/filterSlice/filterSlice';
 
-export function Filter() {
-  const filter = useSelector(state => state.filterValue);
+import { Label, WrapFilter } from './Filter.styled';
+
+function Filter() {
   const dispatch = useDispatch();
+
+  const filter = useSelector(state => state.filterValue);
 
   return (
     <WrapFilter>
@@ -22,7 +24,4 @@ export function Filter() {
   );
 }
 
-// Filter.propTypes = {
-//   changeFilter: PropTypes.func.isRequired,
-//   filter: PropTypes.string.isRequired,
-// };
+export default Filter;

@@ -7,14 +7,14 @@ import {
   signupThunk,
 } from 'redux/thunk/contactsThunk';
 
-// const handlePending = state => {
-//   state.isLoading = true;
-// };
+const handlePending = state => {
+  state.isAuthLoading = true;
+};
 
-// const handleRejected = (state, { error }) => {
-//   state.isLoading = false;
-//   state.error = error;
-// };
+const handleRejected = (state, { error }) => {
+  state.isAuthLoading = false;
+  state.error = error;
+};
 
 const signupSlice = createSlice({
   name: 'signup',
@@ -22,34 +22,43 @@ const signupSlice = createSlice({
 
   extraReducers: builder => {
     builder
+      .addCase(signupThunk.pending, handlePending)
       .addCase(signupThunk.fulfilled, (state, { payload }) => {
         state.error = null;
         state.token = payload.token;
         state.user = payload.user;
         state.isLoggedIn = true;
       })
+      .addCase(signupThunk.rejected, handleRejected)
+      .addCase(loginThunk.pending, handlePending)
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
+        state.isAuthLoading = false;
         state.error = null;
         state.token = payload.token;
         state.user = payload.user;
         state.isLoggedIn = true;
       })
+      .addCase(loginThunk.rejected, handleRejected)
+      .addCase(logoutThunk.pending, handlePending)
       .addCase(logoutThunk.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
+        state.isAuthLoading = false;
         state.isRefreshing = false;
         state.error = null;
       })
-      .addCase(currentUserThunk.pending, (state, { payload }) => {
-        state.isLoading = true;
-        state.isRefreshing = true;
-      })
+      .addCase(logoutThunk.rejected, handleRejected)
+      .addCase(currentUserThunk.pending, handlePending)
       .addCase(currentUserThunk.fulfilled, (state, { payload }) => {
         state.error = null;
         state.user = payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
+      })
+      .addCase(currentUserThunk.rejected, (state, { error }) => {
+        state.isRefreshing = false;
+        state.error = error;
       });
   },
 });
