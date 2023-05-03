@@ -86,30 +86,33 @@ function ContactList() {
           <>
             <Filter />
             <ContactContainer>
-              <ul>
-                {visibleContacts.map(({ id, name, number }) => {
-                  return (
-                    <Item key={id}>
-                      <ContactWrap>
-                        <p>{name}: </p>{' '}
-                        <TelLink href={`tel:${number}`}>{number}</TelLink>
-                      </ContactWrap>
-                      <ButtonsWrap>
-                        {isLoading && <Loader size={'30'} />}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            handelDelete(id);
-                          }}
-                          disabled={isLoading}
-                        >
-                          <TiDeleteOutline />
-                        </button>
-                      </ButtonsWrap>
-                    </Item>
-                  );
-                })}
-              </ul>
+              {!visibleContacts.length && <p>No matches</p>}
+              {visibleContacts && (
+                <ul>
+                  {visibleContacts.map(({ id, name, number }) => {
+                    return (
+                      <Item key={id}>
+                        <ContactWrap>
+                          <p>{name}: </p>{' '}
+                          <TelLink href={`tel:${number}`}>{number}</TelLink>
+                        </ContactWrap>
+                        <ButtonsWrap>
+                          {isLoading && <Loader size={'30'} />}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handelDelete(id);
+                            }}
+                            disabled={isLoading}
+                          >
+                            <TiDeleteOutline />
+                          </button>
+                        </ButtonsWrap>
+                      </Item>
+                    );
+                  })}
+                </ul>
+              )}
             </ContactContainer>
           </>
         )}
