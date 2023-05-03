@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { lazy, useEffect } from 'react';
 
 import PrivateRoute from 'service/route/PrivateRoute';
 import PublicRoute from 'service/route/PublicRoute';
 import { selectToken } from 'redux/selector/selectors';
-import { currentUserThunk } from 'redux/thunk/contactsThunk';
+import { currentUserThunk, getContactsThunk } from 'redux/thunk/contactsThunk';
 
 import Layout from './Layout/Layout';
+import { logout } from 'redux/Slice/signupSlice/signupSlice';
 const PhoneBook = lazy(() => import('page/PhoneBook/PhoneBook'));
 const HomePage = lazy(() => import('page/HomePage/HomePage'));
 const ContactForm = lazy(() => import('./ContactForm/ContactForm'));
@@ -21,7 +22,25 @@ export function App() {
   const token = useSelector(selectToken);
 
   useEffect(() => {
-    token && dispatch(currentUserThunk(token));
+    token &&
+      dispatch(currentUserThunk(token))
+        .unwrap()
+        .then(() => {
+          dispatch(getContactsThunk(token))
+            .unwrap()
+            .catch(error => {
+              if (error.message === 'Unauthorized') {
+                toast.error(error.message);
+                dispatch(logout());
+              } else toast.error('Sorry something went wrong try again');
+            });
+        })
+        .catch(error => {
+          if (error.message === 'Unauthorized') {
+            toast.error(error.message);
+            dispatch(logout());
+          } else toast.error('Sorry something went wrong try again');
+        });
   }, [dispatch, token]);
 
   return (

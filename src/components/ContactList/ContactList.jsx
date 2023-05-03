@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { toast } from 'react-toastify';
@@ -7,17 +6,13 @@ import { motion } from 'framer-motion';
 import Filter from './Filter/Filter';
 import Loader from 'components/Loader/Loader';
 
-import {
-  deleteContactThunk,
-  getContactsThunk,
-} from 'redux/thunk/contactsThunk';
+import { deleteContactThunk } from 'redux/thunk/contactsThunk';
 
 import {
   selectContacts,
   selectFilter,
   selectIsLoading,
   selectIsRefreshing,
-  selectToken,
   selectUser,
 } from 'redux/selector/selectors';
 
@@ -38,7 +33,6 @@ function ContactList() {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const isLoading = useSelector(selectIsLoading);
-  const token = useSelector(selectToken);
   const user = useSelector(selectUser);
   const isRefreshing = useSelector(selectIsRefreshing);
 
@@ -47,10 +41,6 @@ function ContactList() {
   const visibleContacts = contacts.filter(el =>
     el.name.toLowerCase().includes(normalizeFilter)
   );
-
-  useEffect(() => {
-    token && dispatch(getContactsThunk(token));
-  }, [dispatch, token]);
 
   const handelDelete = id => {
     dispatch(deleteContactThunk(id))

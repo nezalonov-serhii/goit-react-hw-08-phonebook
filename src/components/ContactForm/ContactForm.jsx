@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 import Loader from 'components/Loader/Loader';
 
+import { logout } from 'redux/Slice/signupSlice/signupSlice';
 import { createContactThunk } from 'redux/thunk/contactsThunk';
 import { selectContacts, selectIsLoading } from 'redux/selector/selectors';
 
@@ -55,7 +56,12 @@ function ContactForm() {
       .then(() => {
         toast.success(`${name} add in contacts.`);
       })
-      .catch(() => toast.error('Sorry something went wrong try again'));
+      .catch(error => {
+        if (error.message === 'Unauthorized') {
+          toast.error(error.message);
+          dispatch(logout());
+        } else toast.error('Sorry something went wrong try again');
+      });
 
     resetForm();
   };

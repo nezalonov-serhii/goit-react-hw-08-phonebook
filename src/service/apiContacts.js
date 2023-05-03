@@ -16,7 +16,7 @@ export const getContacts = async token => {
     const { data } = await axios.get('/contacts');
     return data;
   } catch (error) {
-    return Promise.reject(error.message);
+    return Promise.reject(error.response.statusText);
   }
 };
 
@@ -34,7 +34,7 @@ export const addContact = async contact => {
     const { data } = await axios.post('/contacts', contact);
     return data;
   } catch (error) {
-    return Promise.reject(error.message);
+    return Promise.reject(error.response.statusText);
   }
 };
 
@@ -81,6 +81,7 @@ export const currentUser = async token => {
 
     return data;
   } catch (error) {
-    return Promise.reject(error.message);
+    dellToken();
+    return Promise.reject(error.response.statusText);
   }
 };

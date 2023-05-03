@@ -25,9 +25,24 @@ const handleFulfilled = (state, { payload }) => {
   state.user = payload.user;
 };
 
+const handleLogout = state => {
+  state.user = { name: null, email: null };
+  state.token = null;
+  state.isLoggedIn = false;
+  state.isAuthLoading = false;
+  state.isRefreshing = false;
+  state.error = null;
+};
+
 const signupSlice = createSlice({
   name: 'signup',
   initialState: signupInitialState,
+
+  reducers: {
+    logout(state) {
+      handleLogout(state);
+    },
+  },
 
   extraReducers: builder => {
     builder
@@ -39,18 +54,10 @@ const signupSlice = createSlice({
         state.isRefreshing = false;
         state.isAuthLoading = false;
       })
-      .addCase(logoutThunk.fulfilled, state => {
-        state.user = { name: null, email: null };
-        state.token = null;
-        state.isLoggedIn = false;
-        state.isAuthLoading = false;
-        state.isRefreshing = false;
-        state.error = null;
-      })
-      .addCase(currentUserThunk.rejected, (state, { error }) => {
-        state.isRefreshing = false;
-        state.error = error;
-      })
+      .addMatcher(
+        isAnyOf(logoutThunk.fulfilled, currentUserThunk.rejected),
+        handleLogout
+      )
       .addMatcher(
         isAnyOf(
           signupThunk.pending,
@@ -75,4 +82,5 @@ const signupSlice = createSlice({
   },
 });
 
+export const { logout } = signupSlice.actions;
 export const signupReducer = signupSlice.reducer;
