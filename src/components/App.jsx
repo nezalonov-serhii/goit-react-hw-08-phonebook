@@ -13,7 +13,7 @@ import { logout } from 'redux/Slice/signupSlice/signupSlice';
 const PhoneBook = lazy(() => import('page/PhoneBook/PhoneBook'));
 const HomePage = lazy(() => import('page/HomePage/HomePage'));
 const ContactForm = lazy(() => import('./ContactForm/ContactForm'));
-const ContactList = lazy(() => import('./ContactList/ContactList'));
+const ContactList = lazy(() => import('./ContactList/ContactList/ContactList'));
 const Register = lazy(() => import('page/Auth/Register/Register'));
 const Login = lazy(() => import('page/Auth/Login/Login'));
 

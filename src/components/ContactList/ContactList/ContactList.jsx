@@ -1,12 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { TiDeleteOutline } from 'react-icons/ti';
-import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
-import Filter from './Filter/Filter';
+import ContactItems from './ContactItem/ContactItem';
 import Loader from 'components/Loader/Loader';
-
-import { deleteContactThunk } from 'redux/thunk/contactsThunk';
+import Filter from '../Filter/Filter';
 
 import {
   selectContacts,
@@ -18,18 +15,12 @@ import {
 
 import {
   AddLink,
-  ButtonsWrap,
   ContactContainer,
-  ContactWrap,
   ContactsWrap,
-  Item,
-  TelLink,
   WelcomeMessage,
 } from './ContactList.styled';
 
 function ContactList() {
-  const dispatch = useDispatch();
-
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const isLoading = useSelector(selectIsLoading);
@@ -41,15 +32,6 @@ function ContactList() {
   const visibleContacts = contacts.filter(el =>
     el.name.toLowerCase().includes(normalizeFilter)
   );
-
-  const handelDelete = id => {
-    dispatch(deleteContactThunk(id))
-      .unwrap()
-      .then(user => {
-        toast.success(`${user.name} removed from contacts.`);
-      })
-      .catch(() => toast.error('Sorry something went wrong try again'));
-  };
 
   return (
     <motion.div
@@ -88,30 +70,7 @@ function ContactList() {
             <ContactContainer>
               {!visibleContacts.length && <p>No matches</p>}
               {visibleContacts && (
-                <ul>
-                  {visibleContacts.map(({ id, name, number }) => {
-                    return (
-                      <Item key={id}>
-                        <ContactWrap>
-                          <p>{name}: </p>{' '}
-                          <TelLink href={`tel:${number}`}>{number}</TelLink>
-                        </ContactWrap>
-                        <ButtonsWrap>
-                          {isLoading && <Loader size={'30'} />}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              handelDelete(id);
-                            }}
-                            disabled={isLoading}
-                          >
-                            <TiDeleteOutline />
-                          </button>
-                        </ButtonsWrap>
-                      </Item>
-                    );
-                  })}
-                </ul>
+                <ContactItems visibleContacts={visibleContacts} />
               )}
             </ContactContainer>
           </>
