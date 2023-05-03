@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { lazy, useEffect } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 
 import PrivateRoute from 'service/route/PrivateRoute';
 import PublicRoute from 'service/route/PublicRoute';

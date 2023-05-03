@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 
 import Filter from './Filter/Filter';
 import Loader from 'components/Loader/Loader';
@@ -61,16 +62,34 @@ function ContactList() {
   };
 
   return (
-    <>
-      {isRefreshing && <Loader />}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.75 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.2,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      {(isRefreshing || isLoading) && !isContactsEmpty && <Loader />}
       <ContactsWrap>
         {!isContactsEmpty && !isRefreshing && !isLoading && (
-          <ContactContainer>
-            <WelcomeMessage>
-              Hello {user.name} please{' '}
-              {<AddLink to="/phone-book/add">add</AddLink>} your first contact
-            </WelcomeMessage>
-          </ContactContainer>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.75 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
+            <ContactContainer>
+              <WelcomeMessage>
+                Hello {user.name} please{' '}
+                {<AddLink to="/phone-book/add">add</AddLink>} your first contact
+              </WelcomeMessage>
+            </ContactContainer>
+          </motion.div>
         )}
 
         {isContactsEmpty && (
@@ -105,7 +124,7 @@ function ContactList() {
           </>
         )}
       </ContactsWrap>
-    </>
+    </motion.div>
   );
 }
 

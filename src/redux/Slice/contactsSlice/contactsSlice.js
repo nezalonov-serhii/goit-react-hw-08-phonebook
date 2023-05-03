@@ -27,10 +27,10 @@ const contactSlice = createSlice({
         state.items = [...payload];
       })
       .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
         const index = state.items.findIndex(task => task.id === payload.id);
         state.items.splice(index, 1);
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(createContactThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;

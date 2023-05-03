@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 
 import Loader from 'components/Loader/Loader';
 
@@ -65,52 +66,62 @@ const Register = () => {
   };
 
   return (
-    <LoginSection>
-      <Form onSubmit={handleSubmit}>
-        <h2>Please enter Name, Email and Password</h2>
-        <label>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            name="name"
-            required
-            onChange={e => {
-              handleInputChange(e.target.value, e.target.name);
-            }}
-          />
-        </label>
-        <label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            name="email"
-            required
-            onChange={e => {
-              handleInputChange(e.target.value, e.target.name);
-            }}
-          />
-        </label>
-        <label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            name="password"
-            autoComplete="off"
-            required
-            onChange={e => {
-              handleInputChange(e.target.value, e.target.name);
-            }}
-          />
-        </label>
-        <button type="submit" disabled={isAuthLoading}>
-          {isAuthLoading && <Loader size="20" />}
-          {!isAuthLoading && <span>Sign up</span>}
-        </button>
-      </Form>
-    </LoginSection>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.75 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.1,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      <LoginSection>
+        <Form onSubmit={handleSubmit}>
+          <h2>Please enter Name, Email and Password</h2>
+          <label>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              name="name"
+              required
+              onChange={e => {
+                handleInputChange(e.target.value, e.target.name);
+              }}
+            />
+          </label>
+          <label>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              name="email"
+              required
+              onChange={e => {
+                handleInputChange(e.target.value, e.target.name);
+              }}
+            />
+          </label>
+          <label>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              name="password"
+              autoComplete="off"
+              required
+              onChange={e => {
+                handleInputChange(e.target.value, e.target.name);
+              }}
+            />
+          </label>
+          <button type="submit" disabled={isAuthLoading}>
+            {isAuthLoading && <Loader size="20" />}
+            {!isAuthLoading && <span>Sign up</span>}
+          </button>
+        </Form>
+      </LoginSection>
+    </motion.div>
   );
 };
 

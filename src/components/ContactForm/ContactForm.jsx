@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 
 import Loader from 'components/Loader/Loader';
 
@@ -65,42 +66,53 @@ function ContactForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <label>
-        <span>Name</span>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          placeholder="Jacob Mercer"
-          onChange={e => {
-            handleInputChange(e.target.value, e.target.name);
-          }}
-        />
-      </label>
-      <label>
-        <span>Number</span>
-        <input
-          type="tel"
-          name="number"
-          value={number}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          placeholder="+38-8888-8888-88"
-          onChange={e => {
-            handleInputChange(e.target.value, e.target.name);
-          }}
-        />
-      </label>
-      <button type="submit" disabled={isLoading}>
-        {isLoading && <Loader size="20" />}
-        {!isLoading && <span>Add contact</span>}
-      </button>
-    </Form>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.75 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.2,
+
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      <Form onSubmit={handleSubmit}>
+        <label>
+          <span>Name</span>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+            placeholder="Jacob Mercer"
+            onChange={e => {
+              handleInputChange(e.target.value, e.target.name);
+            }}
+          />
+        </label>
+        <label>
+          <span>Number</span>
+          <input
+            type="tel"
+            name="number"
+            value={number}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+            placeholder="+38-8888-8888-88"
+            onChange={e => {
+              handleInputChange(e.target.value, e.target.name);
+            }}
+          />
+        </label>
+        <button type="submit" disabled={isLoading}>
+          {isLoading && <Loader size="20" />}
+          {!isLoading && <span>Add contact</span>}
+        </button>
+      </Form>
+    </motion.div>
   );
 }
 
